@@ -3,7 +3,7 @@
 from exts import db
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
-
+from sqlalchemy.orm import relationship
 
 class User(db.Model):
     __tablename__ = 'user'
@@ -17,4 +17,5 @@ class Pet(db.Model):
     __tablename__ = 'pet'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(100))
-    owner_id = db.Column(db.Integer)
+    owner_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    owner = relationship(User)
